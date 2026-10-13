@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DEZE{% endblock %} - DEZE Travel & Prayer Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<a href="https://wa.me/44791639004" class="whatsapp-btn" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
+
+<nav>
+    <div class="logo"><a href="{{ url_for('index') }}">DEZE</a></div>
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('booking') }}">Booking</a></li>
+        <li><a href="{{ url_for('prayer') }}">Prayer</a></li>
+        <li><a href="{{ url_for('payment') }}">Payment</a></li>
+        <li><a href="{{ url_for('gallery') }}">Gallery</a></li>
+        <li><a href="{{ url_for('testimonials') }}">Testimonials</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        {% if current_user %}
+            <li><a href="{{ url_for('account') }}">My Account</a></li>
+            {% if is_admin %}
+                <li><a href="{{ url_for('admin') }}">Admin</a></li>
+            {% endif %}
+            <li>
+                <form method="post" action="{{ url_for('logout') }}" class="inline-form">
+                    <button type="submit" class="link-btn">Logout</button>
+                </form>
+            </li>
+        {% else %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-wrap">
+        {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+
+<footer>
+    <h3>DEZE Travel & Prayer Platform</h3>
+    <p>Your trusted partner for faith-based travel and global prayer.</p>
+    <p>Email: info@dezetravel.com</p>
+    <p>Phone: +44 1234 567890</p>
+    <p>© 2026 DEZE Travel & Prayer Platform</p>
+</footer>
+
+</body>
+</html>

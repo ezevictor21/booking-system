@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock %}
+{% block content %}
+
+<div class="page-banner">
+    <h1>Contact Us</h1>
+</div>
+
+<div class="container">
+    <form method="post" action="{{ url_for('contact') }}">
+        <input name="your_name" type="text" placeholder="Your Name" maxlength="100" required
+               value="{{ form.get('your_name', '') }}">
+        <input name="your_email" type="email" placeholder="Your Email" maxlength="120" required
+               value="{{ form.get('your_email', '') }}">
+        <textarea name="your_message" rows="6" placeholder="Your Message" maxlength="1000" required>{{ form.get('your_message', '') }}</textarea>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <br><br>
+    <h3>Contact Information</h3>
+    <p>Email: info@dezetravel.com</p>
+    <p>Phone: +44 1234 567890</p>
+</div>
+
+{% endblock %}

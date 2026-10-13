@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Prayer Request{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h1>Prayer Request</h1>
+    <form method="post" action="{{ url_for('prayer') }}">
+        <input name="your_name" type="text" placeholder="Your Name" maxlength="100" required
+               value="{{ form.get('your_name', '') }}">
+        <input name="email" type="email" placeholder="Email (optional)" maxlength="120"
+               value="{{ form.get('email', '') }}">
+        <textarea name="write_your_prayer_request" rows="6" placeholder="Write your prayer request" maxlength="1000" required>{{ form.get('write_your_prayer_request', '') }}</textarea>
+        <button type="submit">Submit Prayer Request</button>
+    </form>
+</div>
+
+{% endblock %}

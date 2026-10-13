@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}My Account{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h1>Welcome, {{ current_user.full_name }}</h1>
+
+    <h2>My Bookings</h2>
+    {% if bookings %}
+        <table class="table">
+            <thead>
+                <tr><th>Service</th><th>Travel date</th><th>Status</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+            {% for b in bookings %}
+                <tr>
+                    <td>{{ b.service }}</td>
+                    <td>{{ b.travel_date.strftime('%d %b %Y') }}</td>
+                    <td>{{ b.status }}</td>
+                    <td>{{ b.notes or '' }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have no bookings yet. <a href="{{ url_for('booking') }}">Book a journey</a>.</p>
+    {% endif %}
+
+    <br>
+    <h2>My Payments</h2>
+    {% if payments %}
+        <table class="table">
+            <thead>
+                <tr><th>Reference</th><th>Amount</th><th>Status</th><th>Date</th></tr>
+            </thead>
+            <tbody>
+            {% for p in payments %}
+                <tr>
+                    <td><a href="{{ url_for('payment_status', reference=p.reference) }}">{{ p.reference }}</a></td>
+                    <td>{{ "%.2f"|format(p.amount) }}</td>
+                    <td>{{ p.status }}</td>
+                    <td>{{ p.created_at.strftime('%d %b %Y') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No payments yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

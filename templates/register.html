@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h2>Create Account</h2>
+    <form method="post" action="{{ url_for('register') }}">
+        <input name="full_name" type="text" placeholder="Full Name" maxlength="100" required
+               value="{{ form.get('full_name', '') }}">
+        <input name="email" type="email" placeholder="Email" maxlength="120" required
+               value="{{ form.get('email', '') }}">
+        <input name="password" type="password" placeholder="Password (at least 6 characters)" minlength="6" required>
+        <input name="confirm_password" type="password" placeholder="Confirm Password" minlength="6" required>
+        <button type="submit">Create Account</button>
+        <p>Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+    </form>
+</div>
+
+{% endblock %}

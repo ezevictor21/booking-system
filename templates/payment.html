@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Payment{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h1>Secure Payment</h1>
+    <form method="post" action="{{ url_for('payment') }}">
+        <p>
+            <strong>Secure checkout.</strong> Card details are never typed into this site.
+            After you click Pay, the payment is completed on our payment provider's secure page.
+        </p>
+        <input type="text" name="full_name" placeholder="Full Name" maxlength="100" required
+               value="{{ form.get('full_name', '') }}">
+        <input type="email" name="email" placeholder="Email Address" maxlength="120" required
+               value="{{ form.get('email', '') }}">
+        <input type="number" name="amount" placeholder="Amount" min="1" max="100000" step="0.01" required
+               value="{{ form.get('amount', '') }}">
+        <button type="submit">Pay securely</button>
+    </form>
+</div>
+
+{% endblock %}

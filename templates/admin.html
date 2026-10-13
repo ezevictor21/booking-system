@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Admin{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h1>Admin dashboard</h1>
+
+    <h2>Bookings</h2>
+    {% if bookings %}
+        <table class="table">
+            <thead>
+                <tr><th>Name</th><th>Email</th><th>Phone</th><th>Service</th><th>Travel date</th><th>Notes</th><th>Submitted</th></tr>
+            </thead>
+            <tbody>
+            {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.full_name }}</td>
+                    <td><a href="mailto:{{ booking.email }}">{{ booking.email }}</a></td>
+                    <td>{{ booking.phone or '' }}</td>
+                    <td>{{ booking.service }}</td>
+                    <td>{{ booking.travel_date.strftime('%d %b %Y') }}</td>
+                    <td>{{ booking.notes or '' }}</td>
+                    <td>{{ booking.created_at.strftime('%d %b %Y %H:%M') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No bookings yet.</p>
+    {% endif %}
+
+    <h2>Prayer requests</h2>
+    {% if prayer_requests %}
+        <table class="table">
+            <thead>
+                <tr><th>Name</th><th>Email</th><th>Request</th><th>Submitted</th></tr>
+            </thead>
+            <tbody>
+            {% for prayer_request in prayer_requests %}
+                <tr>
+                    <td>{{ prayer_request.name }}</td>
+                    <td>{% if prayer_request.email %}<a href="mailto:{{ prayer_request.email }}">{{ prayer_request.email }}</a>{% endif %}</td>
+                    <td>{{ prayer_request.request }}</td>
+                    <td>{{ prayer_request.created_at.strftime('%d %b %Y %H:%M') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No prayer requests yet.</p>
+    {% endif %}
+
+    <h2>Messages</h2>
+    {% if messages %}
+        <table class="table">
+            <thead>
+                <tr><th>Name</th><th>Email</th><th>Message</th><th>Submitted</th></tr>
+            </thead>
+            <tbody>
+            {% for message in messages %}
+                <tr>
+                    <td>{{ message.name }}</td>
+                    <td><a href="mailto:{{ message.email }}">{{ message.email }}</a></td>
+                    <td>{{ message.message }}</td>
+                    <td>{{ message.created_at.strftime('%d %b %Y %H:%M') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No messages yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

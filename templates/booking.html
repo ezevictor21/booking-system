@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Booking{% endblock %}
+{% block content %}
+
+<div class="page-banner">
+    <h1>Book Your Journey</h1>
+</div>
+
+<div class="container">
+    <form method="post" action="{{ url_for('booking') }}">
+        <input name="full_name" type="text" placeholder="Full Name" maxlength="100" required
+               value="{{ form.get('full_name', current_user.full_name if current_user else '') }}">
+        <input name="email_address" type="email" placeholder="Email Address" maxlength="120" required
+               value="{{ form.get('email_address', current_user.email if current_user else '') }}">
+        <input name="phone_number" type="tel" placeholder="Phone Number" maxlength="30"
+               value="{{ form.get('phone_number', '') }}">
+        <select name="booking_option" required>
+            <option value="">Select Service</option>
+            {% for service in services %}
+                <option value="{{ service }}" {% if form.get('booking_option') == service %}selected{% endif %}>{{ service }}</option>
+            {% endfor %}
+        </select>
+        <input type="date" name="travel_date" required value="{{ form.get('travel_date', '') }}">
+        <textarea name="additional_information" rows="5" placeholder="Additional Information" maxlength="500">{{ form.get('additional_information', '') }}</textarea>
+        <button type="submit">Submit Booking</button>
+    </form>
+</div>
+
+{% endblock %}
