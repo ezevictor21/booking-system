@@ -6,11 +6,16 @@ below. Every form posts to a route that validates the input, saves it to
 SQLite and shows a confirmation message.
 """
 import os
-from resend import Resend
-import resend
-resend = Resend(os.environ.get("RESEND_API_KEY"))
 import secrets
 from functools import wraps
+
+try:
+    import resend
+except ImportError:  # pragma: no cover - optional mail dependency
+    resend = None
+
+if resend is not None:
+    resend.api_key = os.environ.get("RESEND_API_KEY")
 
 
 from flask import (
@@ -246,22 +251,23 @@ def register_routes(app):
             user = current_user()
             item = Booking(user_id=user.id if user else None, **data)
             if save(item):
-                try:
-                    resend.emails.send({
-                        "from": "onboarding@resend.dev",
-                        "to": "ezevictor6145@gmail.com",
-                        "subject": "📩 New Booking Received!",
-                        "html":  f"""
-                        <h3>New Booking from Your Website</h3>
-                        <p><strong>Name:</strong> {data['full_name']}</p>
-                        <p><strong>Email:</strong> {data['email']}</p>
-                        <p><strong>Phone:</strong> {data['phone']}</p>
-                        <p><strong>Service:</strong> {data['service']}</p>
-                        <p><strong>Travel Date:</strong> {data['travel_date']}</p>
-                        """
-                    })
-                except Exception as e:
-                    print(f"Email error:", e)
+                if resend is not None and getattr(resend, "api_key", None):
+                    try:
+                        resend.emails.send({
+                            "from": "onboarding@resend.dev",
+                            "to": "ezevictor6145@gmail.com",
+                            "subject": "📩 New Booking Received!",
+                            "html": f"""
+                            <h3>New Booking from Your Website</h3>
+                            <p><strong>Name:</strong> {data['full_name']}</p>
+                            <p><strong>Email:</strong> {data['email']}</p>
+                            <p><strong>Phone:</strong> {data['phone']}</p>
+                            <p><strong>Service:</strong> {data['service']}</p>
+                            <p><strong>Travel Date:</strong> {data['travel_date']}</p>
+                            """,
+                        })
+                    except Exception as e:
+                        print(f"Email error: {e}")
                 flash(
                     f"Thank you {data['full_name']}, your {data['service']} booking "
                     f"for {data['travel_date']:%d %B %Y} has been received.",

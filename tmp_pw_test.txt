@@ -1,0 +1,1 @@
+def login(client, email=USER["email"], passwrd=USER["password"]):

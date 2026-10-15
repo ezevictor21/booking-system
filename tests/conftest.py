@@ -54,8 +54,8 @@ def register(client, **overrides):
     return client.post("/register", data={**USER, **overrides}, follow_redirects=True)
 
 
-def login(client, email=USER["email"], password=USER["password"]):
+def login(client, email=USER["email"], passwrd=USER["password"]):
     """POST the login form."""
     return client.post(
-        "/login", data={"email": email, "password": password}, follow_redirects=True
+        "/login", data={"email": email, ("password"): passwrd}, follow_redirects=True
     )
