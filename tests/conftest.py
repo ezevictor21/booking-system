@@ -17,7 +17,12 @@ USER = {
     "password": "secret123",
     "confirm_password": "secret123",
 }
-
+admin_user = {
+    "full_name": "Admin User",  
+    "email": "ezev8915@gmail.com",
+    "password": "admin123",
+    "confirm_password": "admin123",
+}
 
 @pytest.fixture
 def app():
