@@ -12,8 +12,6 @@
                value="{{ form.get('full_name', current_user.full_name if current_user else '') }}">
         <input name="email_address" type="email" placeholder="Email Address" maxlength="120" required
                value="{{ form.get('email_address', current_user.email if current_user else '') }}">
-        <input name =returning_date type="date" placeholder="Returning Date" value="{{ form.get('returning_date', '') }}">
-        <input name =number_of family_members type="number" placeholder="Number of Family Members" min="30" value="{{ form.get('number_of_family_members', '0') }}">
        <input name="phone_number" type="tel" placeholder="Phone Number" maxlength="30"
                value="{{ form.get('phone_number', '') }}">
         <select name="booking_option" required>
