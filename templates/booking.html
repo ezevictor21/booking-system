@@ -24,13 +24,9 @@
         </select>
         <input type="date" name="travel_date" required value="{{ form.get('travel_date', '') }}">
         <input type="time" name="travel_time" required value="{{ form.get('travel_time', '') }}">
-        <input type="date" name="return_date" value="{{ form.get('return_date', '') }}">
-        <input type="time" name="return_time" value="{{ form.get('return_time', '') }}">
-        <input type="number" name="family_members" placeholder="Number of Family Members" min="0" required
+        <input type="number" name="family_members" placeholder="Number of Family Members" min="30" required
                value="{{ form.get('family_members', '0') }}">
-
-
-        <input type="number" name="number_of_passengers" placeholder="Number of Passengers" min="1" required
+        <input type="number" name="number_of_passengers" placeholder="Number of Passengers" min="3" required
                value="{{ form.get('number_of_passengers', '1') }}">
         <textarea name="additional_information" rows="5" placeholder="Additional Information" maxlength="500">{{ form.get('additional_information', '') }}</textarea>
         <button type="submit">Submit Booking</button>
