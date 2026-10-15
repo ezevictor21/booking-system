@@ -53,8 +53,6 @@ class Booking(db.Model):
     phone = db.Column(db.String(30))
     service = db.Column(db.String(50), nullable=False)
     travel_date = db.Column(db.Date, nullable=False)
-    travel_return_date = db.Column(db.Date, nullable=True)
-    travel_time = db.Column(db.Time, nullable=False)
     notes = db.Column(db.String(500))
     status = db.Column(db.String(20), default="Pending")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
