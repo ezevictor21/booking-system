@@ -254,7 +254,7 @@ def register_routes(app):
                 if resend is not None and getattr(resend, "api_key", None):
                     try:
                         resend.emails.send({
-                            "from": "onboarding@resend.dev",
+                            "from": "ezevictor6145@gmail.com",
                             "to": "ezevictor6145@gmail.com",
                             "subject": "📩 New Booking Received!",
                             "html": f"""
