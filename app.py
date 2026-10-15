@@ -251,7 +251,7 @@ def register_routes(app):
                         "from": "onboarding@resend.dev",
                         "to": "ezevictor6145@gmail.com",
                         "subject": "📩 New Booking Received!",
-                        "html": """
+                        "html":  f"""
                         <h3>New Booking from Your Website</h3>
                         <p><strong>Name:</strong> {data['full_name']}</p>
                         <p><strong>Email:</strong> {data['email']}</p>
@@ -261,7 +261,7 @@ def register_routes(app):
                         """
                     })
                 except Exception as e:
-                    print(f"Email error: {e}")
+                    print(f"Email error: e")
                 flash(
                     f"Thank you {data['full_name']}, your {data['service']} booking "
                     f"for {data['travel_date']:%d %B %Y} has been received.",
