@@ -49,7 +49,7 @@ def test_register_valid(client):
 # Bad email, short password and mismatched confirmation are all rejected.
 def test_register_invalid(client):
     assert register(client, email="not-an-email").status_code == 400
-    assert register(client, **{("password"): "abc"}, **{("confirm_password"): "abc"}).status_code == 400
+    assert register(client, password="abc", confirm_password="abc").status_code == 400
     assert register(client, confirm_password="different").status_code == 400
     assert User.query.count() == 0
 

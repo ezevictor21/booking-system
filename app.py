@@ -332,50 +332,6 @@ def register_routes(app):
         if item is None:
             abort(404)
         return render_template("payment_status.html", payment=item)
-
-    @app.route("/admin")
-    def admin_dashboard():
-     from models import Booking
-    bookings = Booking.query.all()
-    return f"""
-    <html>
-    <head><title>Admin Dashboard - DEZE Travel</title>
-    <style>
-        body {{ font-family: Arial; padding: 20px; max-width: 1000px; margin: 0 auto; }}
-        h1 {{ color: #0d47a1; }}
-        table {{ border-collapse: collapse; width: 100%; margin-top: 20px; }}
-        th, td {{ border: 1px solid #ddd; padding: 12px; text-align: left; }}
-        th {{ background: #1976d2; color: white; }}
-        tr:nth-child(even) {{ background: #f9f9f9; }}
-    </style>
-    </head>
-    <body>
-        <h1>🔐 Admin Dashboard</h1>
-        <h3>Total Bookings: {len(bookings)}</h3>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Service</th>
-                <th>Date</th>
-            </tr>
-            {"".join(f'''
-            <tr>
-                <td>{b.full_name}</td>
-                <td>{b.email}</td>
-                <td>{b.phone}</td>
-                <td>{b.service}</td>
-                <td>{b.travel_date}</td>
-            </tr>
-            ''' for b in bookings)}
-        </table>
-        <p style="margin-top: 30px;"><a href="/">← Back to Website</a></p>
-    </body>
-    </html>
-    """
-
-
 app = create_app()
 
 if __name__ == "__main__":
