@@ -8,7 +8,7 @@ SQLite and shows a confirmation message.
 import os
 import secrets
 from functools import wraps
-
+ADMIN_EMAIL = "ezev6145@gmail.com"  # ✅ Your admin email
 try:
     import resend
 except ImportError:  # pragma: no cover - optional mail dependency
@@ -92,6 +92,7 @@ def create_app(config_object=Config):
     """Application factory. Tests pass TestConfig for an in-memory database."""
     app = Flask(__name__)
     app.config.from_object(config_object)
+    app.config.setdefault("ADMIN_EMAIL", getattr(config_object, "ADMIN_EMAIL", "").strip() or "ezev6145@gmail.com")
 
     db.init_app(app)
     bcrypt.init_app(app)
@@ -332,6 +333,7 @@ def register_routes(app):
         if item is None:
             abort(404)
         return render_template("payment_status.html", payment=item)
+    
 app = create_app()
 
 if __name__ == "__main__":
